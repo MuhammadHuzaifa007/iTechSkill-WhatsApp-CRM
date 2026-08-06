@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/use-auth'
 import { formatCurrency } from '@/lib/currency'
 import {
-  MessageSquare,
+  MessageCircle,
   UserPlus,
   DollarSign,
   Send,
@@ -72,22 +72,22 @@ export default function DashboardPage() {
     // sections — each widget shows its own skeleton independently.
     void loadMetrics(db)
       .then((m) => setMetrics(m))
-      .catch((err) => console.error('[dashboard] metrics failed:', err))
+      .catch((err) => console.error(`[dashboard] metrics failed: ${err?.message || err?.code || String(err)}`, err))
       .finally(() => setMetricsLoading(false))
 
     void loadConversationsSeries(db, 30)
       .then((s) => setSeries((prev) => ({ ...prev, 30: s })))
-      .catch((err) => console.error('[dashboard] series failed:', err))
+      .catch((err) => console.error(`[dashboard] series failed: ${err?.message || err?.code || String(err)}`, err))
       .finally(() => setSeriesLoading(false))
 
     void loadPipelineDonut(db)
       .then((p) => setPipeline(p))
-      .catch((err) => console.error('[dashboard] pipeline failed:', err))
+      .catch((err) => console.error(`[dashboard] pipeline failed: ${err?.message || err?.code || String(err)}`, err))
       .finally(() => setPipelineLoading(false))
 
     void loadResponseTime(db)
       .then((r) => setResponseTime(r))
-      .catch((err) => console.error('[dashboard] response time failed:', err))
+      .catch((err) => console.error(`[dashboard] response time failed: ${err?.message || err?.code || String(err)}`, err))
       .finally(() => setResponseTimeLoading(false))
 
     // Fetch up to 50 so the biggest page-size option in the feed
@@ -95,7 +95,7 @@ export default function DashboardPage() {
     // a pure client-side slice with no extra round trip.
     void loadActivity(db, 50)
       .then((a) => setActivity(a))
-      .catch((err) => console.error('[dashboard] activity failed:', err))
+      .catch((err) => console.error(`[dashboard] activity failed: ${err?.message || err?.code || String(err)}`, err))
       .finally(() => setActivityLoading(false))
   }, [])
 
@@ -140,7 +140,7 @@ export default function DashboardPage() {
             <MetricCard
               title={t('activeConversations')}
               value={metrics.activeConversations.current.toLocaleString()}
-              icon={MessageSquare}
+              icon={MessageCircle}
               delta={{
                 sign: metrics.activeConversations.previous,
                 label: deltaLabel(

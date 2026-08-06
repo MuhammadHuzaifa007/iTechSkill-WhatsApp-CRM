@@ -9,7 +9,7 @@ import {
   Trash2,
   Pencil,
   Loader2,
-  MessageSquare,
+  MessageCircle,
   PlayCircle,
   PauseCircle,
   Archive,
@@ -77,7 +77,7 @@ interface TemplateSummary {
 }
 
 const TEMPLATE_ICONS = {
-  MessageSquare,
+  MessageSquare: MessageCircle,
   HelpCircle,
   UserPlus,
 } as const;
@@ -401,7 +401,7 @@ function FlowCard({
 
       <div className="mt-4 flex items-center gap-3 text-[11px] text-muted-foreground">
         <span className="inline-flex items-center gap-1">
-          <MessageSquare className="h-3 w-3" />
+          <MessageCircle className="h-3 w-3" />
           {t("runCount", { count: flow.execution_count })}
         </span>
       </div>

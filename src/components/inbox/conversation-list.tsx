@@ -103,13 +103,10 @@ export function ConversationList({
       if (cancelled) return;
 
       if (error) {
-        // Supabase errors have non-enumerable properties — log fields explicitly
-        console.error("Failed to fetch conversations:", {
-          message: error.message,
-          details: error.details,
-          hint: error.hint,
-          code: error.code,
-        });
+        console.error(
+          `Failed to fetch conversations: ${error.message || error.code || "Unknown error"}`,
+          error
+        );
         setLoading(false);
         return;
       }

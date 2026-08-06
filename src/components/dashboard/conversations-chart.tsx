@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { MessageSquare } from 'lucide-react'
+import { MessageCircle } from 'lucide-react'
 import type { ConversationsSeriesPoint } from '@/lib/dashboard/types'
 import { EmptyState } from './empty-state'
 import { Skeleton } from './skeleton'
@@ -79,7 +79,7 @@ export function ConversationsChart({ series, loading, range, onRangeChange }: Co
           <Skeleton className="h-[240px] w-full" />
         ) : data.every((p) => p.incoming === 0 && p.outgoing === 0) ? (
           <EmptyState
-            icon={MessageSquare}
+            icon={MessageCircle}
             title={t('noActivity')}
             hint={t('noActivityHint')}
           />

@@ -18,7 +18,7 @@ import type {
   InteractiveMessagePayload,
 } from "@/types";
 import {
-  MessageSquare,
+  MessageCircle,
   ChevronDown,
   UserPlus,
   Check,
@@ -227,7 +227,10 @@ export function MessageThread({
       .then(({ data, error }) => {
         if (cancelled) return;
         if (error) {
-          console.error("Failed to fetch profiles:", error);
+          console.error(
+            `Failed to fetch profiles: ${error.message || error.code || "Unknown error"}`,
+            error
+          );
           return;
         }
         setProfiles((data as Profile[]) ?? []);
@@ -873,7 +876,7 @@ export function MessageThread({
     return (
       <div className={cn("flex flex-1 flex-col items-center justify-center", DOODLE_BG_CLASSES)}>
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted">
-          <MessageSquare className="h-8 w-8 text-muted-foreground" />
+          <MessageCircle className="h-8 w-8 text-muted-foreground" />
         </div>
         <h3 className="mt-4 text-sm font-medium text-muted-foreground">
           {t("selectConversation")}

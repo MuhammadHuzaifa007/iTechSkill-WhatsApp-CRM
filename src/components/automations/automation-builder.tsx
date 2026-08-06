@@ -16,7 +16,7 @@ import {
   Plus,
   Trash2,
   GripVertical,
-  MessageSquare,
+  MessageCircle,
   FileText,
   Tag,
   TagIcon,
@@ -98,7 +98,7 @@ interface StepMeta {
 }
 
 const STEP_META: Record<AutomationStepType, StepMeta> = {
-  send_message: { label: "send_message", icon: MessageSquare, border: "border-l-primary" },
+  send_message: { label: "send_message", icon: MessageCircle, border: "border-l-primary" },
   send_buttons: { label: "send_buttons", icon: MousePointerClick, border: "border-l-primary" },
   send_list: { label: "send_list", icon: List, border: "border-l-primary" },
   send_template: { label: "send_template", icon: FileText, border: "border-l-primary" },

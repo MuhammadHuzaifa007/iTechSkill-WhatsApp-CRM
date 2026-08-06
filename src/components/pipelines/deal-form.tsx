@@ -27,7 +27,7 @@ import {
   Check,
   X,
   Trash2,
-  MessageSquare,
+  MessageCircle,
   DollarSign,
   Loader2,
 } from "lucide-react";
@@ -289,7 +289,7 @@ export function DealForm({
                   href="/inbox"
                   className="mt-1 inline-flex items-center gap-1.5 self-start rounded-md bg-primary/10 px-2 py-1 text-xs text-primary hover:bg-primary/20"
                 >
-                  <MessageSquare className="h-3 w-3" />
+                  <MessageCircle className="h-3 w-3" />
                   {t("linkToConversation")}
                 </Link>
               )}

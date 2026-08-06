@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
 import { useTotalUnread } from "@/hooks/use-total-unread";
 import { useUnreadNotifications } from "@/hooks/use-unread-notifications";
+import { WhatsAppBadgeLogo } from "@/components/icons/whatsapp-business-logo";
 import {
   Bell,
   Bot,
@@ -14,7 +15,7 @@ import {
   GitBranch,
   LayoutDashboard,
   LogOut,
-  MessageSquare,
+  MessageCircle,
   Radio,
   Settings,
   Shield,
@@ -91,7 +92,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { href: "/dashboard", labelKey: "dashboard", icon: LayoutDashboard },
-  { href: "/inbox", labelKey: "inbox", icon: MessageSquare },
+  { href: "/inbox", labelKey: "inbox", icon: MessageCircle },
   { href: "/notifications", labelKey: "notifications", icon: Bell },
   { href: "/contacts", labelKey: "contacts", icon: Users },
   { href: "/pipelines", labelKey: "pipelines", icon: GitBranch },
@@ -187,13 +188,16 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
         {/* Logo row. On mobile we put a close button here; on desktop the
             close button is hidden since the sidebar is always-visible. */}
         <div className="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-border px-4">
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <MessageSquare className="h-4 w-4" />
+          <Link href="/dashboard" className="flex items-center gap-2.5 group">
+            <WhatsAppBadgeLogo className="size-8 shrink-0" />
+            <div className="flex flex-col min-w-0">
+              <span className="truncate text-sm font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">
+                iTechSkill
+              </span>
+              <span className="truncate text-[11px] font-semibold text-[#25D366] leading-none">
+                WhatsApp CRM
+              </span>
             </div>
-            <span className="text-sm font-semibold text-foreground">
-              {t("title")}
-            </span>
           </Link>
           <button
             type="button"
