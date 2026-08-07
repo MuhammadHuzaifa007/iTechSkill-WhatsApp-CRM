@@ -24,14 +24,38 @@ export interface MetaPhoneInfo {
 }
 
 interface MetaErrorResponse {
-  error?: { message?: string; code?: number; type?: string }
+  error?: {
+    message?: string
+    code?: number
+    type?: string
+    error_subcode?: number
+    error_user_title?: string
+    error_user_msg?: string
+    fbtrace_id?: string
+  }
 }
 
 async function throwMetaError(response: Response, fallback: string): Promise<never> {
   let message = fallback
   try {
     const data = (await response.json()) as MetaErrorResponse
-    if (data.error?.message) message = data.error.message
+    if (data.error) {
+      const parts: string[] = []
+      if (data.error.message) parts.push(data.error.message)
+      // Meta often puts the actionable detail in error_user_msg
+      // (e.g. "Parameter value is not valid" → error_user_msg tells
+      // you which parameter and why). Surface it so the user doesn't
+      // see a generic "Invalid parameter" with no guidance.
+      if (data.error.error_user_msg && data.error.error_user_msg !== data.error.message) {
+        parts.push(data.error.error_user_msg)
+      }
+      if (data.error.error_user_title && !parts.some(p => p.includes(data.error.error_user_title!))) {
+        parts.unshift(data.error.error_user_title)
+      }
+      if (parts.length > 0) {
+        message = parts.join(' — ')
+      }
+    }
   } catch {
     // response body wasn't JSON — keep the fallback
   }
